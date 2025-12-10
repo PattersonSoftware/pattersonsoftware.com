@@ -1,4 +1,4 @@
-import { Binary, Boxes, Brain, Briefcase, CodeXml, Users, Pyramid, ChartNoAxesCombined } from 'lucide-react';
+import { Binary, Boxes, Brain, Users, Pyramid, ChartNoAxesCombined } from 'lucide-react';
 import React from 'react';
 import Service from '../components/Service';
 
