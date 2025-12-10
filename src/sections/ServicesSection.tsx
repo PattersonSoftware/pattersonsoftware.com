@@ -1,28 +1,43 @@
-import { Briefcase, CodeXml, Users } from 'lucide-react';
+import { Binary, Boxes, Brain, Briefcase, CodeXml, Users, Pyramid, ChartNoAxesCombined } from 'lucide-react';
 import React from 'react';
 import Service from '../components/Service';
 
 const ServicesSection: React.FC = () => {
   const services = [
     {
-      icon: <CodeXml className="w-8 h-8" />,
-      title: "Software Architecture",
-      description: "Designing scalable, maintainable systems using .NET and Python/Django frameworks with proven architectural patterns."
+      icon: <Boxes className="w-8 h-8" />,
+      title: "Architecture",
+      description: "Need help designing a scalable, maintainable system using .NET, Python, Ruby, or Java? I can help you build it with proven architectural patterns."
+    },
+    {
+      icon: <Pyramid className="w-8 h-8" />,
+      title: "Leadership",
+      description: "Ship without a captain? I have a proven track record of leading development teams that deliver high-quality software on time."
     },
     {
       icon: <Users className="w-8 h-8" />,
-      title: "Team Leadership",
-      description: "Leading development teams to deliver high-quality software on time through agile methodologies and best practices."
+      title: "Mentoring",
+      description: "Lots of raw talent? I can help your developers advance their skills in your tech stack through weekly 1-1 meetings, pairing, and code reviews."
     },
     {
-      icon: <Briefcase className="w-8 h-8" />,
-      title: "Technical Mentoring",
-      description: "Mentoring developers to advance their skills in .NET, Python, and Django through hands-on guidance and code reviews."
+      icon: <ChartNoAxesCombined className="w-8 h-8" />,
+      title: "Strategy",
+      description: "Need help figuring out the next big thing? I can help you position your organization for success well into the future."
+    },
+    {
+      icon: <Binary className="w-8 h-8" />,
+      title: "Technology Leaps",
+      description: "Massively out of date? I can help you bring your applications forward to the modern age through a proven methodology, keeping the lights on when it's happening."
+    },
+    {
+      icon: <Brain className="w-8 h-8" />,
+      title: "Knowledge Transfer",
+      description: "All good things must end - I'll ensure that when I leave, you have the documentation and knowledge you need to continue without me."
     }
   ];
 
   return (
-    <section id="services" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+    <section id="services" className="py-28 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-4xl font-bold text-center text-slate-900 mb-12">Services</h2>
         <div className="grid md:grid-cols-3 gap-8">

@@ -30,9 +30,9 @@ const Header: React.FC = () => {
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
           <div className="md:hidden py-4 space-y-2">
-            <a href="#services" className="block py-2 text-slate-700 hover:text-blue-600">Services</a>
-            <a href="#about" className="block py-2 text-slate-700 hover:text-blue-600">About</a>
-            <a href="#contact" className="block py-2 text-slate-700 hover:text-blue-600">Contact</a>
+            <a href="#services" className="block py-2 text-slate-700 hover:text-blue-600" onClick={() => setMobileMenuOpen(false)}>Services</a>
+            <a href="#about" className="block py-2 text-slate-700 hover:text-blue-600" onClick={() => setMobileMenuOpen(false)}>About</a>
+            <a href="#contact" className="block py-2 text-slate-700 hover:text-blue-600" onClick={() => setMobileMenuOpen(false)}>Contact</a>
           </div>
         )}
       </nav>
