@@ -1,6 +1,10 @@
+import React from 'react'
 import { render, screen } from '@testing-library/react'
 import App from './App'
 
+vi.mock('./context/ThemeContext', () => ({
+  ThemeProvider: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+}))
 vi.mock('./components/Header', () => ({
   default: () => <div data-testid="mock-header" />,
 }))

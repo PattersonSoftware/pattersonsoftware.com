@@ -1,8 +1,17 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { useTheme } from '../context/ThemeContext'
 import Header from './Header'
 
+vi.mock('../context/ThemeContext', () => ({
+  useTheme: vi.fn(() => ({ theme: 'light' as const, toggleTheme: vi.fn() })),
+}))
+
 describe('Header', () => {
+  afterEach(() => {
+    vi.resetAllMocks()
+  })
+
   it('renders the logo', () => {
     render(<Header />)
     expect(screen.getByAltText('Patterson Software, LLC')).toBeInTheDocument()
@@ -112,6 +121,28 @@ describe('Header', () => {
     render(<Header />)
     const servicesLinks = screen.getAllByRole('link', { name: /services/i })
     expect(servicesLinks[0]).toHaveAttribute('href', '#services')
+  })
+
+  describe('theme toggle', () => {
+    it('renders the toggle button with "Switch to dark mode" label in light mode', () => {
+      render(<Header />)
+      expect(screen.getByRole('button', { name: /switch to dark mode/i })).toBeInTheDocument()
+    })
+
+    it('renders "Switch to light mode" label when in dark mode', () => {
+      vi.mocked(useTheme).mockReturnValue({ theme: 'dark', toggleTheme: vi.fn() })
+      render(<Header />)
+      expect(screen.getByRole('button', { name: /switch to light mode/i })).toBeInTheDocument()
+    })
+
+    it('calls toggleTheme when the toggle button is clicked', async () => {
+      const mockToggle = vi.fn()
+      vi.mocked(useTheme).mockReturnValue({ theme: 'light', toggleTheme: mockToggle })
+      const user = userEvent.setup()
+      render(<Header />)
+      await user.click(screen.getByRole('button', { name: /switch to dark mode/i }))
+      expect(mockToggle).toHaveBeenCalledOnce()
+    })
   })
 
   describe('responsive visibility classes', () => {
