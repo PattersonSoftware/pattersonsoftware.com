@@ -4,7 +4,7 @@ import HeroSection from './HeroSection'
 describe('HeroSection', () => {
   it('renders the main heading', () => {
     render(<HeroSection />)
-    expect(screen.getByRole('heading')).toHaveTextContent('Custom Solutions For Your Needs!')
+    expect(screen.getByRole('heading')).toHaveTextContent('Custom Solutions For Your Needs')
   })
 
   it('renders the description paragraph', () => {

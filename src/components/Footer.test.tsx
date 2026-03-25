@@ -2,11 +2,11 @@ import { render, screen } from '@testing-library/react'
 import Footer from './Footer'
 
 describe('Footer', () => {
-  it('renders copyright with current year', () => {
+  it('renders copyright with the founding year and current year', () => {
     const year = new Date().getFullYear()
     render(<Footer />)
     expect(
-      screen.getByText(new RegExp(`© ${year} Patterson Software, LLC\\. All rights reserved\\.`)),
+      screen.getByText(new RegExp(`© 2022 - ${year} Patterson Software, LLC\\. All rights reserved\\.`)),
     ).toBeInTheDocument()
   })
 
