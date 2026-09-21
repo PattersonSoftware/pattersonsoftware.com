@@ -1,4 +1,4 @@
-import '@testing-library/jest-dom'
+import '@testing-library/jest-dom/vitest'
 
 // Node.js 24 ships an experimental built-in `localStorage` that doesn't implement
 // the Web Storage API (getItem, setItem, clear, etc.) correctly in test environments.

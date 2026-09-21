@@ -9,7 +9,7 @@ Patterson Software, LLC business website — a React/TypeScript single-page appl
 ## Tech Stack
 
 - **React 19** with TypeScript (strict mode)
-- **Vite 7** — build tool and dev server
+- **Vite 8** — build tool and dev server
 - **Tailwind CSS 4** — all styling via utility classes
 - **Radix UI Themes** — accessible UI components (used for Contact dialog)
 - **lucide-react** — icons
@@ -19,7 +19,7 @@ Patterson Software, LLC business website — a React/TypeScript single-page appl
 ```bash
 npm run dev           # Start dev server with HMR
 npm run build         # Type-check (tsc -b) then Vite production build
-npm run lint          # ESLint on all .ts/.tsx files
+npm run lint          # Oxlint on all .ts/.tsx files (config in .oxlintrc.json)
 npm run preview       # Serve production build locally
 npm run test          # Vitest in watch mode
 npm run test:run      # Run all tests once (for CI)
