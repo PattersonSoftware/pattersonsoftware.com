@@ -1,9 +1,9 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { useTheme } from '../context/ThemeContext'
+import { useTheme } from '../context/useTheme'
 import Header from './Header'
 
-vi.mock('../context/ThemeContext', () => ({
+vi.mock('../context/useTheme', () => ({
   useTheme: vi.fn(() => ({ theme: 'light' as const, toggleTheme: vi.fn() })),
 }))
 

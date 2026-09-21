@@ -1,13 +1,5 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-
-export type Theme = 'light' | 'dark';
-
-interface ThemeContextValue {
-  theme: Theme;
-  toggleTheme: () => void;
-}
-
-const ThemeContext = createContext<ThemeContextValue | null>(null);
+import React, { useEffect, useState } from 'react';
+import { ThemeContext, type Theme } from './theme';
 
 function getInitialTheme(): Theme {
   const stored = localStorage.getItem('theme');
@@ -36,14 +28,8 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }: ThemeP
   const toggleTheme = () => setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext value={{ theme, toggleTheme }}>
       {children}
-    </ThemeContext.Provider>
+    </ThemeContext>
   );
 };
-
-export function useTheme(): ThemeContextValue {
-  const ctx = useContext(ThemeContext);
-  if (ctx === null) throw new Error('useTheme must be used within a ThemeProvider');
-  return ctx;
-}

@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { ThemeProvider, useTheme } from './ThemeContext'
+import { ThemeProvider } from './ThemeContext'
+import { useTheme } from './useTheme'
 
 function ThemeConsumer() {
   const { theme, toggleTheme } = useTheme()

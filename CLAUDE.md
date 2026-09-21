@@ -11,7 +11,7 @@ Patterson Software, LLC business website — a React/TypeScript single-page appl
 - **React 19** with TypeScript (strict mode)
 - **Vite 8** — build tool and dev server
 - **Tailwind CSS 4** — all styling via utility classes
-- **Radix UI Themes** — accessible UI components (used for Contact dialog)
+- **Radix UI Dialog** (`@radix-ui/react-dialog`) — accessible modal primitive (used for Contact dialog)
 - **lucide-react** — icons
 
 ## Commands

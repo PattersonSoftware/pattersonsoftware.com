@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Menu, Moon, Sun, X } from 'lucide-react';
-import { useTheme } from '../context/ThemeContext';
+import { useTheme } from '../context/useTheme';
 import Logo from './Logo';
 
 const Header: React.FC = () => {
