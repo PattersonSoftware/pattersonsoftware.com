@@ -1,4 +1,4 @@
-import { Binary, Boxes, Brain, Users, Pyramid, ChartNoAxesCombined } from 'lucide-react';
+import { Boxes, Brain, Users, Pyramid, ChartNoAxesCombined, Sparkles } from 'lucide-react';
 import React from 'react';
 import Service from '../components/Service';
 
@@ -21,13 +21,13 @@ const ServicesSection: React.FC = () => {
     },
     {
       icon: <ChartNoAxesCombined className="w-8 h-8" />,
-      title: "Strategy",
-      description: "Need help figuring out the next big thing? I can help you position your organization for success well into the future."
+      title: "Strategy & Modernization",
+      description: "Need help figuring out the next big thing, or massively out of date? I can help you set a direction for the future and modernize your applications while keeping the lights on."
     },
     {
-      icon: <Binary className="w-8 h-8" />,
-      title: "Technology Leaps",
-      description: "Massively out of date? I can help you bring your applications forward to the modern age through a proven methodology, keeping the lights on when it's happening."
+      icon: <Sparkles className="w-8 h-8" />,
+      title: "AI Acceleration",
+      description: "Want to ship faster? I use AI coding agents like Claude Code to speed up prototypes, tests, and migrations, with architecture and quality still in experienced hands."
     },
     {
       icon: <Brain className="w-8 h-8" />,

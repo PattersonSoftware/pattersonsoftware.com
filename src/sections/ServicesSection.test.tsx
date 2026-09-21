@@ -5,8 +5,8 @@ const SERVICE_TITLES = [
   'Architecture',
   'Leadership',
   'Mentoring',
-  'Strategy',
-  'Technology Leaps',
+  'Strategy & Modernization',
+  'AI Acceleration',
   'Knowledge Transfer',
 ]
 
@@ -21,6 +21,17 @@ describe('ServicesSection', () => {
     for (const title of SERVICE_TITLES) {
       expect(screen.getByText(title)).toBeInTheDocument()
     }
+  })
+
+  it('does not render the old Strategy or Technology Leaps cards', () => {
+    render(<ServicesSection />)
+    expect(screen.queryByText(/^Strategy$/)).not.toBeInTheDocument()
+    expect(screen.queryByText('Technology Leaps')).not.toBeInTheDocument()
+  })
+
+  it('describes AI agents in the AI Acceleration card', () => {
+    render(<ServicesSection />)
+    expect(screen.getByText(/AI coding agents/i)).toBeInTheDocument()
   })
 
   it('renders the services grid container', () => {
