@@ -10,7 +10,7 @@ const AboutSection: React.FC = () => {
             Founded in 2022, Patterson Software is an independent consultancy focused on software architecture, leadership, mentoring, strategy, and system stability and robustness. With deep expertise in several ecosystems, including .NET and Python, I can help your organization build better software through sound architectural decisions and effective team development.
           </p>
           <p role="paragraph" className="text-lg text-slate-700 dark:text-slate-300">
-            Whether you need to design a new system, improve existing architecture, or develop your team's technical capabilities, I bring over 16 years of hands-on experience and proven methodologies to help you succeed.
+            Whether you need to design a new system, improve existing architecture, or develop your team's technical capabilities, I bring over 17 years of hands-on experience and proven methodologies to help you succeed.
           </p>
         </div>
       </div>

@@ -19,7 +19,7 @@ describe('AboutSection', () => {
 
   it('contains company experience text', () => {
     render(<AboutSection />)
-    expect(screen.getByText(/16 years/i)).toBeInTheDocument()
+    expect(screen.getByText(/17 years/i)).toBeInTheDocument()
   })
 
   it('mentions Patterson Software', () => {
