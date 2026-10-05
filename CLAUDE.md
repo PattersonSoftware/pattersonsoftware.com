@@ -50,7 +50,8 @@ src/
     Modal.tsx               # Shared Radix UI Dialog (trigger, title, description, Close)
     Contact.tsx             # Contact button + Modal with email link
     Product.tsx             # Product card rendered as a <li> (icon, name, status badge, action)
-    Waitlist.tsx            # "Join the List" button + coming-soon Modal (placeholder)
+    EmailLink.tsx           # Mail icon + mailto link (optional prefilled subject)
+    Waitlist.tsx            # "Join the List" button + Modal pointing to the inquiries email (placeholder)
   context/
     theme.ts                # Theme type, context object, safe localStorage helpers
     ThemeContext.tsx        # ThemeProvider: stored choice, else follows OS preference

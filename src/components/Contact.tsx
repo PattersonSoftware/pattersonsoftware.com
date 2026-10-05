@@ -1,6 +1,6 @@
-import { Mail } from 'lucide-react';
 import React from 'react';
 import { site } from '../siteConfig';
+import EmailLink from './EmailLink';
 import Modal from './Modal';
 
 interface ContactProps {
@@ -29,12 +29,7 @@ const Contact: React.FC<ContactProps> = ({
       title={dialogTitle}
       description={dialogText}
     >
-      <div className="flex items-center space-x-3 text-slate-700 dark:text-slate-300">
-        <Mail className="w-5 h-5 text-blue-600" />
-        <a href={`mailto:${contactEmail}`} className="hover:text-blue-600 underline">
-          {contactEmail}
-        </a>
-      </div>
+      <EmailLink email={contactEmail} />
     </Modal>
   );
 };

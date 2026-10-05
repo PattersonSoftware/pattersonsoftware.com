@@ -19,6 +19,6 @@ describe('ProductsSection', () => {
     const user = userEvent.setup();
     render(<ProductsSection />);
     await user.click(screen.getByRole('button', { name: 'Join the List' }));
-    expect(screen.getByRole('dialog')).toHaveAccessibleDescription('The waitlist is coming soon.');
+    expect(screen.getByRole('dialog')).toHaveAccessibleDescription(/coming soon/i);
   });
 });
