@@ -12,6 +12,7 @@ vi.mock('../context/useTheme', () => ({
 
 const NAV_LINKS = [
   { name: 'Services', href: '#services' },
+  { name: 'Products', href: '#products' },
   { name: 'About', href: '#about' },
   { name: 'Contact', href: '#contact' },
 ];

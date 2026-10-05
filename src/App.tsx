@@ -3,6 +3,7 @@ import { ThemeProvider } from './context/ThemeContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ServicesSection from './sections/ServicesSection';
+import ProductsSection from './sections/ProductsSection';
 import HeroSection from './sections/HeroSection';
 import AboutSection from './sections/AboutSection';
 import ContactSection from './sections/ContactSection';
@@ -23,6 +24,7 @@ const App: React.FC = () => {
         <main id="main" tabIndex={-1} className="focus:outline-none">
           <HeroSection />
           <ServicesSection />
+          <ProductsSection />
           <AboutSection />
           <ContactSection />
         </main>

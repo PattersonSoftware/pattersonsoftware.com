@@ -1,0 +1,40 @@
+import * as Dialog from '@radix-ui/react-dialog';
+import React from 'react';
+
+interface ModalProps {
+  // A single button element; Radix wires up its click, focus, and ARIA attributes.
+  trigger: React.ReactElement;
+  title: string;
+  description: string;
+  children?: React.ReactNode;
+}
+
+const Modal: React.FC<ModalProps> = ({ trigger, title, description, children }) => {
+  return (
+    <Dialog.Root>
+      <Dialog.Trigger asChild>{trigger}</Dialog.Trigger>
+      <Dialog.Portal>
+        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/50" />
+        <Dialog.Content className="fixed z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-slate-800 rounded-lg p-6 w-[calc(100%-2rem)] max-w-md shadow-xl">
+          <Dialog.Title className="text-2xl font-bold mb-4 text-slate-900 dark:text-white">
+            {title}
+          </Dialog.Title>
+          <Dialog.Description className="text-slate-600 dark:text-slate-400 mb-6">
+            {description}
+          </Dialog.Description>
+          {children}
+          <Dialog.Close asChild>
+            <button
+              type="button"
+              className="mt-6 w-full bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-white px-4 py-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
+            >
+              Close
+            </button>
+          </Dialog.Close>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
+  );
+};
+
+export default Modal;

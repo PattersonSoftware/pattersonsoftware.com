@@ -11,7 +11,7 @@ Patterson Software, LLC business website — a React/TypeScript single-page appl
 - **React 19** with TypeScript (strict mode)
 - **Vite 8** — build tool and dev server
 - **Tailwind CSS 4** — all styling via utility classes
-- **Radix UI Dialog** (`@radix-ui/react-dialog`) — accessible modal primitive (used for Contact dialog)
+- **Radix UI Dialog** (`@radix-ui/react-dialog`) — accessible modal primitive (wrapped by `components/Modal.tsx`)
 - **lucide-react** — icons
 
 ## Commands
@@ -47,7 +47,10 @@ src/
     Logo.tsx                # Configurable logo image wrapper
     Section.tsx             # Standard section wrapper: id, labelled region, h2, spacing
     Service.tsx             # Service card rendered as a <li>
-    Contact.tsx             # Radix UI Dialog modal
+    Modal.tsx               # Shared Radix UI Dialog (trigger, title, description, Close)
+    Contact.tsx             # Contact button + Modal with email link
+    Product.tsx             # Product card rendered as a <li> (icon, name, status badge, action)
+    Waitlist.tsx            # "Join the List" button + coming-soon Modal (placeholder)
   context/
     theme.ts                # Theme type, context object, safe localStorage helpers
     ThemeContext.tsx        # ThemeProvider: stored choice, else follows OS preference
@@ -55,6 +58,7 @@ src/
   sections/
     HeroSection.tsx
     ServicesSection.tsx
+    ProductsSection.tsx
     AboutSection.tsx
     ContactSection.tsx
   test/

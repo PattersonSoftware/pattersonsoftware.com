@@ -13,6 +13,9 @@ vi.mock('./sections/HeroSection', () => ({
 vi.mock('./sections/ServicesSection', () => ({
   default: () => <div data-testid="mock-services" />,
 }));
+vi.mock('./sections/ProductsSection', () => ({
+  default: () => <div data-testid="mock-products" />,
+}));
 vi.mock('./sections/AboutSection', () => ({
   default: () => <div data-testid="mock-about" />,
 }));
@@ -24,9 +27,13 @@ describe('App', () => {
   it('places every content section inside the main landmark, in order', () => {
     render(<App />);
     const main = screen.getByRole('main');
-    const sections = ['mock-hero', 'mock-services', 'mock-about', 'mock-contact'].map((id) =>
-      screen.getByTestId(id),
-    );
+    const sections = [
+      'mock-hero',
+      'mock-services',
+      'mock-products',
+      'mock-about',
+      'mock-contact',
+    ].map((id) => screen.getByTestId(id));
     for (const section of sections) expect(main).toContainElement(section);
     for (let i = 1; i < sections.length; i++) {
       expect(
