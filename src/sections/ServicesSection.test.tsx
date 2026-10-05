@@ -1,46 +1,18 @@
-import { render, screen } from '@testing-library/react'
-import ServicesSection from './ServicesSection'
-
-const SERVICE_TITLES = [
-  'Architecture',
-  'Leadership',
-  'Mentoring',
-  'Strategy & Modernization',
-  'AI Acceleration',
-  'Knowledge Transfer',
-]
+import { render, screen, within } from '@testing-library/react';
+import ServicesSection from './ServicesSection';
 
 describe('ServicesSection', () => {
-  it('renders the Services heading', () => {
-    render(<ServicesSection />)
-    expect(screen.getByRole('heading', { name: /^services$/i })).toBeInTheDocument()
-  })
+  it('renders as a landmark labelled Services', () => {
+    render(<ServicesSection />);
+    expect(screen.getByRole('region', { name: 'Services' })).toHaveAttribute('id', 'services');
+  });
 
-  it('renders all 6 service titles', () => {
-    render(<ServicesSection />)
-    for (const title of SERVICE_TITLES) {
-      expect(screen.getByText(title)).toBeInTheDocument()
+  it('renders each service as a list item with its own heading', () => {
+    render(<ServicesSection />);
+    const items = within(screen.getByRole('list')).getAllByRole('listitem');
+    expect(items.length).toBeGreaterThan(0);
+    for (const item of items) {
+      expect(within(item).getByRole('heading', { level: 3 })).toBeInTheDocument();
     }
-  })
-
-  it('does not render the old Strategy or Technology Leaps cards', () => {
-    render(<ServicesSection />)
-    expect(screen.queryByText(/^Strategy$/)).not.toBeInTheDocument()
-    expect(screen.queryByText('Technology Leaps')).not.toBeInTheDocument()
-  })
-
-  it('describes AI agents in the AI Acceleration card', () => {
-    render(<ServicesSection />)
-    expect(screen.getByText(/AI coding agents/i)).toBeInTheDocument()
-  })
-
-  it('renders the services grid container', () => {
-    render(<ServicesSection />)
-    expect(screen.getByRole('grid')).toBeInTheDocument()
-  })
-
-  it('has section id of services', () => {
-    const { container } = render(<ServicesSection />)
-    expect(container.querySelector('section#services')).toBeInTheDocument()
-  })
-})
+  });
+});

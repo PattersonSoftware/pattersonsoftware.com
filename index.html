@@ -4,6 +4,31 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Patterson Software, LLC - A Columbus, OH company</title>
+    <meta
+      name="description"
+      content="Patterson Software, LLC is a Columbus, OH consultancy offering software architecture, technical leadership, mentoring, and modernization."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://pattersonsoftware.com/" />
+    <meta property="og:title" content="Patterson Software, LLC" />
+    <meta
+      property="og:description"
+      content="Software architecture, technical leadership, mentoring, and modernization from Columbus, OH."
+    />
+    <script>
+      // Apply the theme before first paint to avoid a flash of the wrong theme.
+      // Must match the logic in src/context/ThemeContext.tsx and src/context/theme.ts.
+      (function () {
+        var stored = null;
+        try {
+          stored = localStorage.getItem('theme');
+        } catch (e) {}
+        var dark =
+          stored === 'dark' ||
+          (stored !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.classList.toggle('dark', dark);
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

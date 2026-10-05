@@ -1,17 +1,12 @@
-import { render, screen } from '@testing-library/react'
-import Footer from './Footer'
+import { render, screen } from '@testing-library/react';
+import { site } from '../siteConfig';
+import Footer from './Footer';
 
 describe('Footer', () => {
-  it('renders copyright with the founding year and current year', () => {
-    const year = new Date().getFullYear()
-    render(<Footer />)
-    expect(
-      screen.getByText(new RegExp(`© 2022 - ${year} Patterson Software, LLC\\. All rights reserved\\.`)),
-    ).toBeInTheDocument()
-  })
-
-  it('renders a footer element', () => {
-    const { container } = render(<Footer />)
-    expect(container.querySelector('footer')).toBeInTheDocument()
-  })
-})
+  it('renders a contentinfo landmark with the founding year through the current year', () => {
+    render(<Footer />);
+    expect(screen.getByRole('contentinfo')).toHaveTextContent(
+      `© ${site.foundedYear} - ${new Date().getFullYear()} ${site.legalName}.`,
+    );
+  });
+});

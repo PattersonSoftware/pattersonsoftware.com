@@ -1,168 +1,101 @@
-import { render, screen, waitFor } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
-import { useTheme } from '../context/useTheme'
-import Header from './Header'
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { useTheme } from '../context/useTheme';
+import Header from './Header';
 
 vi.mock('../context/useTheme', () => ({
-  useTheme: vi.fn(() => ({ theme: 'light' as const, toggleTheme: vi.fn() })),
-}))
+  useTheme: vi.fn<typeof useTheme>(() => ({
+    theme: 'light' as const,
+    toggleTheme: vi.fn<() => void>(),
+  })),
+}));
+
+const NAV_LINKS = [
+  { name: 'Services', href: '#services' },
+  { name: 'About', href: '#about' },
+  { name: 'Contact', href: '#contact' },
+];
+
+const menuButton = () => screen.getByRole('button', { name: 'Menu' });
+const mobileMenu = () => document.getElementById('mobile-menu')!;
 
 describe('Header', () => {
   afterEach(() => {
-    vi.resetAllMocks()
-  })
+    vi.resetAllMocks();
+  });
 
-  it('renders the logo', () => {
-    render(<Header />)
-    expect(screen.getByAltText('Patterson Software, LLC')).toBeInTheDocument()
-  })
+  it('renders a banner landmark containing the main navigation', () => {
+    render(<Header />);
+    expect(screen.getByRole('banner')).toContainElement(
+      screen.getByRole('navigation', { name: 'Main' }),
+    );
+  });
 
-  it('renders a header element', () => {
-    const { container } = render(<Header />)
-    expect(container.querySelector('header')).toBeInTheDocument()
-  })
+  it('renders the logo as a link', () => {
+    render(<Header />);
+    expect(screen.getByRole('link', { name: 'Patterson Software, LLC' })).toHaveAttribute(
+      'href',
+      '#top',
+    );
+  });
 
-  it('renders desktop navigation links', () => {
-    render(<Header />)
-    expect(screen.getAllByRole('link', { name: /services/i })).toHaveLength(1)
-    expect(screen.getAllByRole('link', { name: /about/i })).toHaveLength(1)
-    expect(screen.getAllByRole('link', { name: /contact/i })).toHaveLength(1)
-  })
+  it.each(NAV_LINKS)('renders a $name link to $href', ({ name, href }) => {
+    render(<Header />);
+    expect(screen.getByRole('link', { name })).toHaveAttribute('href', href);
+  });
 
-  it('renders mobile menu button', () => {
-    render(<Header />)
-    expect(screen.getByRole('button', { name: /menu/i })).toBeInTheDocument()
-  })
+  describe('mobile menu', () => {
+    it('is collapsed initially', () => {
+      render(<Header />);
+      expect(menuButton()).toHaveAttribute('aria-expanded', 'false');
+      expect(menuButton()).toHaveAttribute('aria-controls', 'mobile-menu');
+      expect(mobileMenu()).not.toBeVisible();
+    });
 
-  it('mobile menu is closed initially', () => {
-    render(<Header />)
-    // Only desktop nav links present (1 of each)
-    expect(screen.getAllByRole('link', { name: /services/i })).toHaveLength(1)
-  })
+    it('expands and collapses when the menu button is clicked', async () => {
+      const user = userEvent.setup();
+      render(<Header />);
 
-  it('opens mobile menu when button is clicked', async () => {
-    const user = userEvent.setup()
-    render(<Header />)
-    await user.click(screen.getByRole('button', { name: /menu/i }))
-    // Desktop + mobile = 2 of each
-    expect(screen.getAllByRole('link', { name: /services/i })).toHaveLength(2)
-    expect(screen.getAllByRole('link', { name: /about/i })).toHaveLength(2)
-    expect(screen.getAllByRole('link', { name: /contact/i })).toHaveLength(2)
-  })
+      await user.click(menuButton());
+      expect(menuButton()).toHaveAttribute('aria-expanded', 'true');
+      expect(mobileMenu()).toBeVisible();
 
-  it('closes mobile menu when the menu button is clicked again', async () => {
-    const user = userEvent.setup()
-    render(<Header />)
-    await user.click(screen.getByRole('button', { name: /menu/i }))
-    expect(screen.getAllByRole('link', { name: /services/i })).toHaveLength(2)
-    await user.click(screen.getByRole('button', { name: /menu/i }))
-    await waitFor(() => {
-      expect(screen.getAllByRole('link', { name: /services/i })).toHaveLength(1)
-    })
-  })
+      await user.click(menuButton());
+      expect(menuButton()).toHaveAttribute('aria-expanded', 'false');
+      expect(mobileMenu()).not.toBeVisible();
+    });
 
-  it('closes mobile menu when the Services link is clicked', async () => {
-    const user = userEvent.setup()
-    render(<Header />)
-    await user.click(screen.getByRole('button', { name: /menu/i }))
-    await user.click(screen.getAllByRole('link', { name: /services/i })[1])
-    await waitFor(() => {
-      expect(screen.getAllByRole('link', { name: /services/i })).toHaveLength(1)
-    })
-  })
-
-  it('closes mobile menu when the About link is clicked', async () => {
-    const user = userEvent.setup()
-    render(<Header />)
-    await user.click(screen.getByRole('button', { name: /menu/i }))
-    await user.click(screen.getAllByRole('link', { name: /about/i })[1])
-    await waitFor(() => {
-      expect(screen.getAllByRole('link', { name: /about/i })).toHaveLength(1)
-    })
-  })
-
-  it('closes mobile menu when the Contact link is clicked', async () => {
-    const user = userEvent.setup()
-    render(<Header />)
-    await user.click(screen.getByRole('button', { name: /menu/i }))
-    await user.click(screen.getAllByRole('link', { name: /contact/i })[1])
-    await waitFor(() => {
-      expect(screen.getAllByRole('link', { name: /contact/i })).toHaveLength(1)
-    })
-  })
-
-  it('mobile nav links have correct href attributes', async () => {
-    const user = userEvent.setup()
-    render(<Header />)
-    await user.click(screen.getByRole('button', { name: /menu/i }))
-    const mobileLinks = [
-      screen.getAllByRole('link', { name: /services/i })[1],
-      screen.getAllByRole('link', { name: /about/i })[1],
-      screen.getAllByRole('link', { name: /contact/i })[1],
-    ]
-    expect(mobileLinks[0]).toHaveAttribute('href', '#services')
-    expect(mobileLinks[1]).toHaveAttribute('href', '#about')
-    expect(mobileLinks[2]).toHaveAttribute('href', '#contact')
-  })
-
-  it('can reopen the mobile menu after it has been closed', async () => {
-    const user = userEvent.setup()
-    render(<Header />)
-    await user.click(screen.getByRole('button', { name: /menu/i }))
-    await user.click(screen.getByRole('button', { name: /menu/i }))
-    await waitFor(() => {
-      expect(screen.getAllByRole('link', { name: /services/i })).toHaveLength(1)
-    })
-    await user.click(screen.getByRole('button', { name: /menu/i }))
-    expect(screen.getAllByRole('link', { name: /services/i })).toHaveLength(2)
-  })
-
-  it('nav links have correct href attributes', () => {
-    render(<Header />)
-    const servicesLinks = screen.getAllByRole('link', { name: /services/i })
-    expect(servicesLinks[0]).toHaveAttribute('href', '#services')
-  })
+    it.each(NAV_LINKS)('closes when the $name link is clicked', async ({ name }) => {
+      const user = userEvent.setup();
+      render(<Header />);
+      await user.click(menuButton());
+      // The visible link is the mobile one; the desktop list is display:none only via CSS.
+      const links = screen.getAllByRole('link', { name });
+      await user.click(links[links.length - 1]);
+      expect(menuButton()).toHaveAttribute('aria-expanded', 'false');
+      expect(mobileMenu()).not.toBeVisible();
+    });
+  });
 
   describe('theme toggle', () => {
-    it('renders the toggle button with "Switch to dark mode" label in light mode', () => {
-      render(<Header />)
-      expect(screen.getByRole('button', { name: /switch to dark mode/i })).toBeInTheDocument()
-    })
+    it('offers dark mode when the theme is light', () => {
+      render(<Header />);
+      expect(screen.getByRole('button', { name: 'Switch to dark mode' })).toBeInTheDocument();
+    });
 
-    it('renders "Switch to light mode" label when in dark mode', () => {
-      vi.mocked(useTheme).mockReturnValue({ theme: 'dark', toggleTheme: vi.fn() })
-      render(<Header />)
-      expect(screen.getByRole('button', { name: /switch to light mode/i })).toBeInTheDocument()
-    })
+    it('offers light mode when the theme is dark', () => {
+      vi.mocked(useTheme).mockReturnValue({ theme: 'dark', toggleTheme: vi.fn<() => void>() });
+      render(<Header />);
+      expect(screen.getByRole('button', { name: 'Switch to light mode' })).toBeInTheDocument();
+    });
 
-    it('calls toggleTheme when the toggle button is clicked', async () => {
-      const mockToggle = vi.fn()
-      vi.mocked(useTheme).mockReturnValue({ theme: 'light', toggleTheme: mockToggle })
-      const user = userEvent.setup()
-      render(<Header />)
-      await user.click(screen.getByRole('button', { name: /switch to dark mode/i }))
-      expect(mockToggle).toHaveBeenCalledOnce()
-    })
-  })
-
-  describe('responsive visibility classes', () => {
-    it('mobile menu button is marked to hide on medium+ screens', () => {
-      render(<Header />)
-      expect(screen.getByRole('button', { name: /menu/i })).toHaveClass('md:hidden')
-    })
-
-    it('desktop nav is marked to hide on small screens', () => {
-      const { container } = render(<Header />)
-      const desktopNav = container.querySelector('.hidden.md\\:flex')
-      expect(desktopNav).toBeInTheDocument()
-    })
-
-    it('mobile nav panel is marked to hide on medium+ screens when open', async () => {
-      const user = userEvent.setup()
-      const { container } = render(<Header />)
-      await user.click(screen.getByRole('button', { name: /menu/i }))
-      const mobileNav = container.querySelector('.md\\:hidden.py-4')
-      expect(mobileNav).toBeInTheDocument()
-    })
-  })
-})
+    it('calls toggleTheme when clicked', async () => {
+      const toggleTheme = vi.fn<() => void>();
+      vi.mocked(useTheme).mockReturnValue({ theme: 'light', toggleTheme });
+      const user = userEvent.setup();
+      render(<Header />);
+      await user.click(screen.getByRole('button', { name: 'Switch to dark mode' }));
+      expect(toggleTheme).toHaveBeenCalledOnce();
+    });
+  });
+});

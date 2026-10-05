@@ -1,29 +1,16 @@
-import { render, screen } from '@testing-library/react'
-import AboutSection from './AboutSection'
+import { render, screen } from '@testing-library/react';
+import { site, yearsOfExperience } from '../siteConfig';
+import AboutSection from './AboutSection';
 
 describe('AboutSection', () => {
-  it('renders the About heading', () => {
-    render(<AboutSection />)
-    expect(screen.getByRole('heading')).toHaveTextContent('About')
-  })
+  it('renders as a landmark labelled About', () => {
+    render(<AboutSection />);
+    expect(screen.getByRole('region', { name: 'About' })).toHaveAttribute('id', 'about');
+  });
 
-  it('has section id of about', () => {
-    const { container } = render(<AboutSection />)
-    expect(container.querySelector('section#about')).toBeInTheDocument()
-  })
-
-  it('renders the article element', () => {
-    render(<AboutSection />)
-    expect(screen.getByRole('article')).toBeInTheDocument()
-  })
-
-  it('contains company experience text', () => {
-    render(<AboutSection />)
-    expect(screen.getByText(/17 years/i)).toBeInTheDocument()
-  })
-
-  it('mentions Patterson Software', () => {
-    render(<AboutSection />)
-    expect(screen.getByText(/Patterson Software/i)).toBeInTheDocument()
-  })
-})
+  it('shows the founding year and current years of experience', () => {
+    render(<AboutSection />);
+    expect(screen.getByText(new RegExp(`Founded in ${site.foundedYear}`))).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(`over ${yearsOfExperience()} years`))).toBeInTheDocument();
+  });
+});

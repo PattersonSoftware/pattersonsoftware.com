@@ -1,26 +1,29 @@
-import { render, screen } from '@testing-library/react'
-import Service from './Service'
+import { render, screen } from '@testing-library/react';
+import Service from './Service';
+
+function renderService(props: Partial<React.ComponentProps<typeof Service>> = {}) {
+  return render(
+    <ul>
+      <Service
+        icon={<span />}
+        title="Architecture"
+        description="Build scalable systems."
+        {...props}
+      />
+    </ul>,
+  );
+}
 
 describe('Service', () => {
-  it('renders title and description', () => {
-    render(<Service icon={<span />} title="Architecture" description="Build scalable systems." />)
-    expect(screen.getByRole('heading')).toHaveTextContent('Architecture')
-    expect(screen.getByRole('paragraph')).toHaveTextContent('Build scalable systems.')
-  })
+  it('renders as a list item with a level 3 heading and description', () => {
+    renderService();
+    const item = screen.getByRole('listitem');
+    expect(screen.getByRole('heading', { level: 3, name: 'Architecture' })).toBeInTheDocument();
+    expect(item).toHaveTextContent('Build scalable systems.');
+  });
 
   it('renders the icon node', () => {
-    const icon = <span data-testid="test-icon">Icon</span>
-    render(<Service icon={icon} title="Leadership" description="Lead your team." />)
-    expect(screen.getByTestId('test-icon')).toBeInTheDocument()
-  })
-
-  it('renders different titles and descriptions for different instances', () => {
-    const { rerender } = render(
-      <Service icon={<span />} title="Strategy" description="Plan for success." />,
-    )
-    expect(screen.getByRole('heading')).toHaveTextContent('Strategy')
-
-    rerender(<Service icon={<span />} title="Mentoring" description="Grow your team." />)
-    expect(screen.getByRole('heading')).toHaveTextContent('Mentoring')
-  })
-})
+    renderService({ icon: <span data-testid="test-icon" /> });
+    expect(screen.getByTestId('test-icon')).toBeInTheDocument();
+  });
+});
