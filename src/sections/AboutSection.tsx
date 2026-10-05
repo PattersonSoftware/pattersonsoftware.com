@@ -2,6 +2,9 @@ import React from 'react';
 import Section from '../components/Section';
 import { site, yearsOfExperience } from '../siteConfig';
 
+// Computed once at load; render must stay pure.
+const experienceYears = yearsOfExperience();
+
 const AboutSection: React.FC = () => {
   return (
     <Section id="about" title="About">
@@ -15,8 +18,8 @@ const AboutSection: React.FC = () => {
         </p>
         <p>
           Whether you need to design a new system, improve existing architecture, or develop your
-          team's technical capabilities, I bring over {yearsOfExperience()} years of hands-on
-          experience and proven methodologies to help you succeed.
+          team's technical capabilities, I bring over {experienceYears} years of hands-on experience
+          and proven methodologies to help you succeed.
         </p>
       </div>
     </Section>
