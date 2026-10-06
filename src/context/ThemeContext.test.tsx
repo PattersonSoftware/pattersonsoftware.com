@@ -60,12 +60,11 @@ describe('ThemeContext', () => {
     });
 
     it('still renders when storage is unavailable', () => {
-      const getItem = vi.spyOn(localStorage, 'getItem').mockImplementation(() => {
+      vi.spyOn(localStorage, 'getItem').mockImplementation(() => {
         throw new Error('SecurityError');
       });
       renderWithProvider();
       expect(screen.getByTestId('theme')).toHaveTextContent('light');
-      getItem.mockRestore();
     });
   });
 
@@ -114,24 +113,22 @@ describe('ThemeContext', () => {
     });
 
     it('still toggles when storage writes fail', async () => {
-      const setItem = vi.spyOn(localStorage, 'setItem').mockImplementation(() => {
+      vi.spyOn(localStorage, 'setItem').mockImplementation(() => {
         throw new Error('QuotaExceededError');
       });
       const user = userEvent.setup();
       renderWithProvider();
       await user.click(screen.getByRole('button', { name: /toggle/i }));
       expect(screen.getByTestId('theme')).toHaveTextContent('dark');
-      setItem.mockRestore();
     });
   });
 
   describe('useTheme guard', () => {
     it('throws when used outside ThemeProvider', () => {
-      const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
+      vi.spyOn(console, 'error').mockImplementation(() => {});
       expect(() => render(<ThemeConsumer />)).toThrow(
         'useTheme must be used within a ThemeProvider',
       );
-      consoleError.mockRestore();
     });
   });
 });

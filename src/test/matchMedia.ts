@@ -1,15 +1,17 @@
+import { DARK_MODE_QUERY } from '../context/theme';
+
 type ChangeListener = (event: MediaQueryListEvent) => void;
 
 const listeners = new Set<ChangeListener>();
 let prefersDark = false;
 
-// Installs a controllable `window.matchMedia` stub. Only `(prefers-color-scheme: dark)` ever matches.
+// Installs a controllable `window.matchMedia` stub. Only DARK_MODE_QUERY ever matches.
 export function installMatchMedia(): void {
   Object.defineProperty(window, 'matchMedia', {
     writable: true,
     configurable: true,
     value: (query: string): MediaQueryList => {
-      const isDarkQuery = query === '(prefers-color-scheme: dark)';
+      const isDarkQuery = query === DARK_MODE_QUERY;
       return {
         matches: isDarkQuery && prefersDark,
         media: query,
@@ -31,7 +33,7 @@ export function installMatchMedia(): void {
 // Sets the system dark-mode preference and notifies any subscribed listeners.
 export function setSystemPrefersDark(value: boolean): void {
   prefersDark = value;
-  const event = { matches: value, media: '(prefers-color-scheme: dark)' } as MediaQueryListEvent;
+  const event = { matches: value, media: DARK_MODE_QUERY } as MediaQueryListEvent;
   for (const listener of listeners) listener(event);
 }
 

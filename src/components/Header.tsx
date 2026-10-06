@@ -7,14 +7,14 @@ import Logo from './Logo';
 
 const navLinks = navSections.map(({ id, navLabel }) => ({ href: `#${id}`, label: navLabel }));
 
-const navLinkClassName = 'text-slate-700 dark:text-slate-300 hover:text-blue-600 transition-colors';
+const navLinkClassName = 'text-body hover:text-blue-600 transition-colors';
 
 const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <header className={`bg-white dark:bg-slate-900 shadow-sm sticky top-0 ${zIndex.header}`}>
+    <header className={`bg-surface shadow-sm sticky top-0 ${zIndex.header}`}>
       <nav aria-label="Main" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-28">
           {/* "#top" scrolls to the top of the page; the logo alt text names this link. */}
@@ -37,7 +37,7 @@ const Header: React.FC = () => {
               type="button"
               aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
               onClick={toggleTheme}
-              className="p-2 rounded-md text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              className="p-2 rounded-md text-body hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
             >
               {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </button>
@@ -47,7 +47,7 @@ const Header: React.FC = () => {
               aria-label="Menu"
               aria-expanded={mobileMenuOpen}
               aria-controls="mobile-menu"
-              className="md:hidden p-2 text-slate-700 dark:text-slate-300"
+              className="md:hidden p-2 text-body"
               onClick={() => setMobileMenuOpen((open) => !open)}
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}

@@ -8,6 +8,8 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     globals: true,
+    // Undo vi.spyOn replacements before each test, even if a previous test failed mid-way.
+    restoreMocks: true,
     setupFiles: ['./src/test/setup.ts'],
     include: ['src/**/*.{test,spec}.{ts,tsx}'],
     coverage: {

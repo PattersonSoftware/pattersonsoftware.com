@@ -12,7 +12,7 @@ const EmailLink: React.FC<EmailLinkProps> = ({ email, subject }) => {
     : `mailto:${email}`;
 
   return (
-    <div className="flex items-center space-x-3 text-slate-700 dark:text-slate-300">
+    <div className="flex items-center space-x-3 text-body">
       <Mail className="w-5 h-5 text-blue-600" />
       <a href={href} className="hover:text-blue-600 underline">
         {email}

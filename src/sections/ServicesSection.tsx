@@ -48,12 +48,7 @@ const services = [
 
 const ServicesSection: React.FC = () => {
   return (
-    <Section
-      id={pageSections.services.id}
-      title="Services"
-      width="wide"
-      className="bg-white dark:bg-slate-900"
-    >
+    <Section id={pageSections.services.id} title="Services" width="wide" className="bg-surface">
       <CardList className="md:grid-cols-3">
         {services.map((service) => (
           <Service key={service.title} {...service} />

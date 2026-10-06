@@ -28,7 +28,7 @@ npm run test:run      # Run all tests once (for CI)
 npm run test:coverage # Run tests with V8 coverage report
 ```
 
-Always run `npm run format`, `npm run build`, `npm run lint`, and `npm run test:run` before considering work complete. CI runs `format:check`, `lint`, `test:run`, and `build` and blocks deployment if any fail.
+Always run `npm run format`, `npm run build`, `npm run lint`, and `npm run test:run` before considering work complete. CI runs `format:check`, `lint`, `test:run`, and `build` on every branch push, and only deploys from `main` when they pass.
 
 ## Project Structure
 
@@ -76,7 +76,8 @@ Tests live next to the code they cover (`*.test.ts(x)`).
 ## Code Conventions
 
 - **Components:** Functional components with explicit `React.FC<Props>` typing and prop interfaces
-- **Styling:** Tailwind utility classes only — no custom CSS except global imports in `index.css`
+- **Styling:** Tailwind utility classes only. `index.css` holds only the Tailwind import, the dark variant, and semantic color tokens.
+- **Colors:** Use the semantic tokens from `index.css` for theme-dependent colors: `text-strong` (headings), `text-body` (default copy), `text-muted` (secondary copy), `bg-surface` (header and alternating sections), `bg-card` (cards and dialogs). Add a token instead of repeating a `light dark:dark` pair in more than one place.
 - **Responsive:** Mobile-first using `md:` breakpoint prefix
 - **Accessibility:** Use semantic elements (`<main>`, `<nav>`, `<section aria-labelledby>`, `<ul>`/`<li>`, `<h1>`–`<h3>`, `<button>`, `<a href>`) instead of ARIA roles. Don't add a `role` that repeats an element's built-in role, and never use widget roles like `grid` or `button` for non-interactive or navigational content. Interactive disclosure controls need `aria-expanded`/`aria-controls`. Keep one `<h1>` (the hero) and heading levels in order. Decorative lucide icons are `aria-hidden` by default.
 - **Content:** Business facts (company name, founded year, contact email, years of experience) come from `src/siteConfig.ts`; don't hardcode them in components.
@@ -84,11 +85,12 @@ Tests live next to the code they cover (`*.test.ts(x)`).
 - **Shared UI:** Use `PrimaryButton` for call-to-action buttons, `CardList` for card grids, `Modal` for dialogs, and `EmailLink` for mailto links rather than copying their classes.
 - **Z-index:** Take z-index classes from `src/zIndex.ts`; don't add ad hoc `z-*` values.
 - **Tailwind classes must be written out in full:** don't build class names at runtime (e.g. `` `focus:${x}` ``), because Tailwind only generates classes it finds as complete strings in source.
-- **Theme bootstrap:** The inline script in `index.html` must match the rules in `src/context/theme.ts`; `themeBootstrap.test.ts` runs it and will fail if they diverge.
+- **Theme bootstrap:** The inline script in `index.html` must pick the same theme as `ThemeProvider`; `themeBootstrap.test.tsx` runs both and fails if they diverge.
+- **Mocks:** `restoreMocks` is on, so `vi.spyOn` replacements are undone automatically; don't call `mockRestore()` by hand.
 - **Tests:** Query by role and accessible name. Don't assert on Tailwind class names or exact marketing copy.
 - **State:** Local `useState` only — no global state library
 - **TypeScript:** Strict mode is on; `noUnusedLocals` and `noUnusedParameters` are enforced
 
 ## Deployment
 
-Pushes to `main` trigger GitHub Actions (`.github/workflows/deploy.yml`), which runs `npm ci`, then format check, lint, tests, and build, and deploys `/dist` to GitHub Pages only if all pass.
+GitHub Actions (`.github/workflows/deploy.yml`) runs format check, lint, tests, and build on every branch push. On `main`, a separate `deploy` job then publishes `/dist` to GitHub Pages, only if the checks passed.

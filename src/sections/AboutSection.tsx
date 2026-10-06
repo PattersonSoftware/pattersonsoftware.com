@@ -9,7 +9,7 @@ const experienceYears = yearsOfExperience();
 const AboutSection: React.FC = () => {
   return (
     <Section id={pageSections.about.id} title="About">
-      <div className="bg-white dark:bg-slate-800 p-8 rounded-lg shadow-sm space-y-4 text-lg text-slate-700 dark:text-slate-300">
+      <div className="bg-card p-8 rounded-lg shadow-sm space-y-4 text-lg text-body">
         <p>
           Founded in {site.foundedYear}, {site.name} is an independent consultancy focused on
           software architecture, leadership, mentoring, strategy, and system stability and

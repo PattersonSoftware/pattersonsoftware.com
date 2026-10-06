@@ -1,2 +1,32 @@
 @import 'tailwindcss';
 @variant dark (&:where(.dark, .dark *));
+
+/*
+ * Semantic colors that switch with the theme. Use these (`text-strong`, `bg-card`, ...) instead of
+ * repeating light/dark pairs like `text-slate-900 dark:text-white` in components.
+ */
+:root {
+  --strong: var(--color-slate-900);
+  --body: var(--color-slate-700);
+  --muted: var(--color-slate-600);
+  --surface: var(--color-white);
+  --card: var(--color-white);
+}
+
+.dark {
+  --strong: var(--color-white);
+  --body: var(--color-slate-300);
+  --muted: var(--color-slate-400);
+  --surface: var(--color-slate-900);
+  --card: var(--color-slate-800);
+}
+
+@theme inline {
+  /* Text: headings and emphasis / default copy / secondary copy. */
+  --color-strong: var(--strong);
+  --color-body: var(--body);
+  --color-muted: var(--muted);
+  /* Backgrounds: raised page bands (header, alternating sections) / cards and dialogs. */
+  --color-surface: var(--surface);
+  --color-card: var(--card);
+}

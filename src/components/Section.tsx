@@ -30,10 +30,7 @@ const Section: React.FC<SectionProps> = ({
       className={`py-16 px-4 sm:px-6 lg:px-8 scroll-mt-20 ${className}`}
     >
       <div className={`${widthClasses[width]} mx-auto`}>
-        <h2
-          id={headingId}
-          className="text-4xl font-bold text-center text-slate-900 dark:text-white mb-8"
-        >
+        <h2 id={headingId} className="text-4xl font-bold text-center text-strong mb-8">
           {title}
         </h2>
         {children}
