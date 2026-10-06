@@ -12,10 +12,11 @@ on:
 permissions:
   contents: read
 
-# One run per branch at a time; a newer push cancels an older in-progress run.
+# One run per branch at a time. On branches a newer push cancels an older run; on main it waits,
+# so a Pages deploy is never cut off mid-way.
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
   check:

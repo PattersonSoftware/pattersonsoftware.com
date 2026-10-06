@@ -14,7 +14,7 @@ const products = [
     name: 'Freelancer',
     status: 'Beta' as const,
     description:
-      'Now in beta, Freelancer helps independent consultants run the business side of their practice. Handle basic invoicing, timesheets, expenses, and more in one place, so you can spend less time on paperwork and more time on client work.',
+      'Freelancer helps independent consultants run the business side of their practice. Handle basic invoicing, timesheets, expenses, and more in one place, so you can spend less time on paperwork and more time on client work.',
   },
 ];
 

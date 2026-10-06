@@ -1,6 +1,8 @@
 import React from 'react';
 import Contact from '../components/Contact';
 
+// Deliberately not a <Section>: it holds the page's only <h1>, isn't a nav target, and uses larger
+// spacing. Every other section should use <Section>.
 const HeroSection: React.FC = () => {
   return (
     <section aria-labelledby="hero-heading" className="py-20 px-4 sm:px-6 lg:px-8">

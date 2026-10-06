@@ -1,4 +1,5 @@
 import React from 'react';
+import { scrollMarginBelowHeader } from '../layout';
 
 interface SectionProps {
   id: string;
@@ -20,7 +21,7 @@ const Section: React.FC<SectionProps> = ({ id, title, width = 'narrow', children
     <section
       id={id}
       aria-labelledby={headingId}
-      className="py-16 px-4 sm:px-6 lg:px-8 scroll-mt-20"
+      className={`py-16 px-4 sm:px-6 lg:px-8 ${scrollMarginBelowHeader}`}
     >
       <div className={`${widthClasses[width]} mx-auto`}>
         <h2 id={headingId} className="text-4xl font-bold text-center text-strong mb-8">

@@ -1,6 +1,7 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useTheme } from '../context/useTheme';
+import { navSections } from '../pageSections';
 import Header from './Header';
 
 vi.mock('../context/useTheme', () => ({
@@ -10,12 +11,7 @@ vi.mock('../context/useTheme', () => ({
   })),
 }));
 
-const NAV_LINKS = [
-  { name: 'Services', href: '#services' },
-  { name: 'Products', href: '#products' },
-  { name: 'About', href: '#about' },
-  { name: 'Contact', href: '#contact' },
-];
+const NAV_LINKS = navSections.map(({ id, navLabel }) => ({ name: navLabel, href: `#${id}` }));
 
 const menuButton = () => screen.getByRole('button', { name: 'Menu' });
 const mobileMenu = () => document.getElementById('mobile-menu')!;
@@ -70,9 +66,7 @@ describe('Header', () => {
       const user = userEvent.setup();
       render(<Header />);
       await user.click(menuButton());
-      // The visible link is the mobile one; the desktop list is display:none only via CSS.
-      const links = screen.getAllByRole('link', { name });
-      await user.click(links[links.length - 1]);
+      await user.click(within(mobileMenu()).getByRole('link', { name }));
       expect(menuButton()).toHaveAttribute('aria-expanded', 'false');
       expect(mobileMenu()).not.toBeVisible();
     });

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export type ProductStatus = 'Beta' | 'Coming soon';
+export type ProductStatus = 'Beta';
 
 interface ProductProps {
   icon: React.ReactNode;

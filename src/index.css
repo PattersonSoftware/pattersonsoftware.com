@@ -6,6 +6,7 @@
  * repeating light/dark pairs like `text-slate-900 dark:text-white` in components.
  */
 :root {
+  color-scheme: light;
   --strong: var(--color-slate-900);
   --body: var(--color-slate-700);
   --muted: var(--color-slate-600);
@@ -15,6 +16,7 @@
 }
 
 .dark {
+  color-scheme: dark;
   --strong: var(--color-white);
   --body: var(--color-slate-300);
   --muted: var(--color-slate-400);

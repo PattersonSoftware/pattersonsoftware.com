@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Menu, Moon, Sun, X } from 'lucide-react';
 import { useTheme } from '../context/useTheme';
+import { headerHeight } from '../layout';
 import { navSections } from '../pageSections';
 import { zIndex } from '../zIndex';
 import Logo from './Logo';
@@ -16,7 +17,7 @@ const Header: React.FC = () => {
   return (
     <header className={`bg-surface shadow-sm sticky top-0 ${zIndex.header}`}>
       <nav aria-label="Main" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-28">
+        <div className={`flex justify-between items-center ${headerHeight}`}>
           {/* "#top" scrolls to the top of the page; the logo alt text names this link. */}
           <a href="#top">
             <Logo className="dark:brightness-0 dark:invert" />

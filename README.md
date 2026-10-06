@@ -24,4 +24,4 @@ npm run test:run
 npm run build
 ```
 
-CI runs all four on every push to `main` and deploys to GitHub Pages only if they pass.
+CI runs all four on every branch push. Pushes to `main` then deploy to GitHub Pages, only if they pass.
