@@ -3,32 +3,33 @@ import App from './App';
 
 // Renders the real page (no mocks) to check wiring between components.
 describe('App integration', () => {
-  function navTargets(): HTMLElement[] {
+  // The section IDs the main nav links to, in nav order (the logo's "#top" link is excluded).
+  function navTargetIds(): string[] {
     const nav = screen.getByRole('navigation', { name: 'Main' });
-    const sectionLinks = within(nav)
+    return within(nav)
       .getAllByRole('link')
-      .filter((link) => link.getAttribute('href') !== '#top');
-    expect(sectionLinks.length).toBeGreaterThan(0);
-    return sectionLinks.map((link) => {
-      const id = link.getAttribute('href')!.slice(1);
-      const target = document.getElementById(id);
-      expect(target, `nav link has no #${id} section`).toBeInstanceOf(HTMLElement);
-      return target!;
-    });
+      .map((link) => link.getAttribute('href')!)
+      .filter((href) => href !== '#top')
+      .map((href) => href.slice(1));
   }
 
   it('every nav link points at a section that exists', () => {
     render(<App />);
-    navTargets();
+    const ids = navTargetIds();
+    expect(ids.length).toBeGreaterThan(0);
+    for (const id of ids) {
+      expect(document.getElementById(id), `nav link has no #${id} section`).toBeInstanceOf(
+        HTMLElement,
+      );
+    }
   });
 
   it('nav links are in the same order as their sections on the page', () => {
     render(<App />);
-    const targets = navTargets();
-    for (let i = 1; i < targets.length; i++) {
-      const follows =
-        targets[i - 1].compareDocumentPosition(targets[i]) & Node.DOCUMENT_POSITION_FOLLOWING;
-      expect(follows, `#${targets[i].id} should come after #${targets[i - 1].id}`).toBeTruthy();
-    }
+    const ids = navTargetIds();
+    const sectionIdsInPageOrder = Array.from(document.querySelectorAll('section[id]'))
+      .map((section) => section.id)
+      .filter((id) => ids.includes(id));
+    expect(ids).toEqual(sectionIdsInPageOrder);
   });
 });

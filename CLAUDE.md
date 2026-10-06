@@ -19,7 +19,7 @@ Patterson Software, LLC business website — a React/TypeScript single-page appl
 ```bash
 npm run dev           # Start dev server with HMR
 npm run build         # Type-check (tsc -b) then Vite production build
-npm run lint          # Oxlint, including jsx-a11y and vitest rules (config in .oxlintrc.json)
+npm run lint          # Oxlint with jsx-a11y and vitest rules; warnings fail the run (config in .oxlintrc.json)
 npm run format        # Format with oxfmt (config in .oxfmtrc.json)
 npm run format:check  # Check formatting without writing (runs in CI)
 npm run preview       # Serve production build locally

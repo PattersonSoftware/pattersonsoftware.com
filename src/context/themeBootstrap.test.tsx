@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import indexHtml from '../../index.html?raw';
 import { setSystemPrefersDark } from '../test/matchMedia';
 import { THEME_STORAGE_KEY, type Theme } from './theme';
@@ -19,18 +19,17 @@ function bootstrapTheme(): Theme {
   return document.documentElement.classList.contains('dark') ? 'dark' : 'light';
 }
 
+function ThemeProbe() {
+  return <span data-testid="provider-theme">{useTheme().theme}</span>;
+}
+
 function providerTheme(): Theme {
-  let theme: Theme | undefined;
-  function Probe() {
-    theme = useTheme().theme;
-    return null;
-  }
   render(
     <ThemeProvider>
-      <Probe />
+      <ThemeProbe />
     </ThemeProvider>,
   );
-  return theme!;
+  return screen.getByTestId('provider-theme').textContent as Theme;
 }
 
 describe('index.html theme bootstrap', () => {
