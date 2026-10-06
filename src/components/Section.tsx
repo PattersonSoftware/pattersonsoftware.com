@@ -4,7 +4,6 @@ interface SectionProps {
   id: string;
   title: string;
   width?: 'narrow' | 'wide';
-  className?: string;
   children: React.ReactNode;
 }
 
@@ -14,20 +13,14 @@ const widthClasses = {
 } as const;
 
 // Standard page section: anchor target for the nav, labelled landmark, and consistent spacing.
-const Section: React.FC<SectionProps> = ({
-  id,
-  title,
-  width = 'narrow',
-  className = '',
-  children,
-}) => {
+const Section: React.FC<SectionProps> = ({ id, title, width = 'narrow', children }) => {
   const headingId = `${id}-heading`;
 
   return (
     <section
       id={id}
       aria-labelledby={headingId}
-      className={`py-16 px-4 sm:px-6 lg:px-8 scroll-mt-20 ${className}`}
+      className="py-16 px-4 sm:px-6 lg:px-8 scroll-mt-20"
     >
       <div className={`${widthClasses[width]} mx-auto`}>
         <h2 id={headingId} className="text-4xl font-bold text-center text-strong mb-8">

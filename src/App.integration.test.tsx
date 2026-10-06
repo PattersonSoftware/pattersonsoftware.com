@@ -24,6 +24,13 @@ describe('App integration', () => {
     }
   });
 
+  it('main contains only sections, so the alternating-sections backgrounds stay in step', () => {
+    render(<App />);
+    const children = Array.from(screen.getByRole('main').children);
+    expect(children.length).toBeGreaterThan(1);
+    expect(children.map((child) => child.tagName)).toEqual(children.map(() => 'SECTION'));
+  });
+
   it('nav links are in the same order as their sections on the page', () => {
     render(<App />);
     const ids = navTargetIds();

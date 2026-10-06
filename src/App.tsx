@@ -22,7 +22,7 @@ const App: React.FC = () => {
 
         <Header />
 
-        <main id="main" tabIndex={-1} className="focus:outline-none">
+        <main id="main" tabIndex={-1} className="alternating-sections focus:outline-none">
           <HeroSection />
           <ServicesSection />
           <ProductsSection />

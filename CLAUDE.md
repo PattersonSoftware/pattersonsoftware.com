@@ -76,11 +76,12 @@ Tests live next to the code they cover (`*.test.ts(x)`).
 ## Code Conventions
 
 - **Components:** Functional components with explicit `React.FC<Props>` typing and prop interfaces
-- **Styling:** Tailwind utility classes only. `index.css` holds only the Tailwind import, the dark variant, and semantic color tokens.
-- **Colors:** Use the semantic tokens from `index.css` for theme-dependent colors: `text-strong` (headings), `text-body` (default copy), `text-muted` (secondary copy), `bg-surface` (header and alternating sections), `bg-card` (cards and dialogs). Add a token instead of repeating a `light dark:dark` pair in more than one place.
+- **Styling:** Tailwind utility classes only. `index.css` holds only the Tailwind import, the dark variant, semantic color tokens, and the `alternating-sections` utility.
+- **Colors:** Use the semantic tokens from `index.css` for theme-dependent colors: `text-strong` (headings), `text-body` (default copy), `text-muted` (secondary copy), `bg-surface` (header), `bg-card` (cards and dialogs; automatically lighter inside surface bands). Add a token instead of repeating a `light dark:dark` pair in more than one place.
 - **Responsive:** Mobile-first using `md:` breakpoint prefix
 - **Accessibility:** Use semantic elements (`<main>`, `<nav>`, `<section aria-labelledby>`, `<ul>`/`<li>`, `<h1>`–`<h3>`, `<button>`, `<a href>`) instead of ARIA roles. Don't add a `role` that repeats an element's built-in role, and never use widget roles like `grid` or `button` for non-interactive or navigational content. Interactive disclosure controls need `aria-expanded`/`aria-controls`. Keep one `<h1>` (the hero) and heading levels in order. Decorative lucide icons are `aria-hidden` by default.
 - **Content:** Business facts (company name, founded year, contact email, years of experience) come from `src/siteConfig.ts`; don't hardcode them in components.
+- **Section backgrounds:** `<main>` uses `alternating-sections`, so every second section gets the surface band automatically. Don't set backgrounds on individual sections, and keep `<main>`'s direct children as `<section>` elements.
 - **New sections:** Add an entry to `src/pageSections.ts` (and to `navSections` if it belongs in the nav), then render `<Section id={pageSections.x.id} title>`. `App.integration.test.tsx` fails if a nav link has no matching section.
 - **Shared UI:** Use `PrimaryButton` for call-to-action buttons, `CardList` for card grids, `Modal` for dialogs, and `EmailLink` for mailto links rather than copying their classes.
 - **Z-index:** Take z-index classes from `src/zIndex.ts`; don't add ad hoc `z-*` values.

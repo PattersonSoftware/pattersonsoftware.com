@@ -11,6 +11,7 @@
   --muted: var(--color-slate-600);
   --surface: var(--color-white);
   --card: var(--color-white);
+  --card-on-surface: var(--color-slate-50);
 }
 
 .dark {
@@ -19,6 +20,7 @@
   --muted: var(--color-slate-400);
   --surface: var(--color-slate-900);
   --card: var(--color-slate-800);
+  --card-on-surface: var(--color-slate-800);
 }
 
 @theme inline {
@@ -29,4 +31,16 @@
   /* Backgrounds: raised page bands (header, alternating sections) / cards and dialogs. */
   --color-surface: var(--surface);
   --color-card: var(--card);
+}
+
+/*
+ * Applied to <main>: every second section gets the surface band so backgrounds alternate
+ * automatically as sections are added or reordered. Cards inside those bands switch to
+ * --card-on-surface so they stay visible against the lighter background.
+ */
+@utility alternating-sections {
+  & > section:nth-of-type(even) {
+    background-color: var(--surface);
+    --card: var(--card-on-surface);
+  }
 }
