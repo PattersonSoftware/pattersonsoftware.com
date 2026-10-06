@@ -1,5 +1,5 @@
-import { BriefcaseBusiness } from 'lucide-react';
 import React from 'react';
+import freelancerMark from '../assets/freelancer-mark.svg';
 import CardList from '../components/CardList';
 import Product from '../components/Product';
 import Section from '../components/Section';
@@ -8,7 +8,9 @@ import { pageSections } from '../pageSections';
 
 const products = [
   {
-    icon: <BriefcaseBusiness className="w-10 h-10" />,
+    // Copied verbatim from the Freelancer project (src/frontend/public/favicon.svg); re-copy if the
+    // mark changes there. Decorative: the product name is the card heading.
+    icon: <img src={freelancerMark} alt="" width={40} height={40} className="w-10 h-10" />,
     name: 'Freelancer',
     status: 'Beta' as const,
     description:
