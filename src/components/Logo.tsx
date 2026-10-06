@@ -3,14 +3,12 @@ import LogoImage from '../assets/logo.png';
 import { site } from '../siteConfig';
 
 interface LogoProps {
-  width?: number | string;
-  height?: number | string;
   className?: string;
 }
 
-const Logo: React.FC<LogoProps> = ({ width = 225, height = 100, className = '' }) => {
+const Logo: React.FC<LogoProps> = ({ className = '' }) => {
   return (
-    <img src={LogoImage} alt={site.legalName} width={width} height={height} className={className} />
+    <img src={LogoImage} alt={site.legalName} width={225} height={100} className={className} />
   );
 };
 

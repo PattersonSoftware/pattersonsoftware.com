@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 import { Menu, Moon, Sun, X } from 'lucide-react';
 import { useTheme } from '../context/useTheme';
+import { navSections } from '../pageSections';
+import { zIndex } from '../zIndex';
 import Logo from './Logo';
 
-const navLinks = [
-  { href: '#services', label: 'Services' },
-  { href: '#products', label: 'Products' },
-  { href: '#about', label: 'About' },
-  { href: '#contact', label: 'Contact' },
-];
+const navLinks = navSections.map(({ id, navLabel }) => ({ href: `#${id}`, label: navLabel }));
 
 const navLinkClassName = 'text-slate-700 dark:text-slate-300 hover:text-blue-600 transition-colors';
 
@@ -17,7 +14,7 @@ const Header: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <header className="bg-white dark:bg-slate-900 shadow-sm sticky top-0 z-50">
+    <header className={`bg-white dark:bg-slate-900 shadow-sm sticky top-0 ${zIndex.header}`}>
       <nav aria-label="Main" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-28">
           {/* "#top" scrolls to the top of the page; the logo alt text names this link. */}

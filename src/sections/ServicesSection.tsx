@@ -1,7 +1,9 @@
 import { Boxes, Brain, ChartNoAxesCombined, Pyramid, Sparkles, Users } from 'lucide-react';
 import React from 'react';
+import CardList from '../components/CardList';
 import Section from '../components/Section';
 import Service from '../components/Service';
+import { pageSections } from '../pageSections';
 
 const iconClassName = 'w-8 h-8';
 
@@ -46,14 +48,17 @@ const services = [
 
 const ServicesSection: React.FC = () => {
   return (
-    <Section id="services" title="Services" width="wide" className="bg-white dark:bg-slate-900">
-      {/* role="list" restores list semantics that Safari drops when list-style is removed. */}
-      {/* oxlint-disable-next-line jsx-a11y/no-redundant-roles */}
-      <ul role="list" className="grid md:grid-cols-3 gap-8">
+    <Section
+      id={pageSections.services.id}
+      title="Services"
+      width="wide"
+      className="bg-white dark:bg-slate-900"
+    >
+      <CardList className="md:grid-cols-3">
         {services.map((service) => (
           <Service key={service.title} {...service} />
         ))}
-      </ul>
+      </CardList>
     </Section>
   );
 };

@@ -1,9 +1,11 @@
 import React from 'react';
 
+export type ProductStatus = 'Beta' | 'Coming soon';
+
 interface ProductProps {
   icon: React.ReactNode;
   name: string;
-  status?: string;
+  status?: ProductStatus;
   description: string;
   action: React.ReactNode;
 }

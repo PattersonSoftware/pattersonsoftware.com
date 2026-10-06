@@ -1,5 +1,6 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import React from 'react';
+import { zIndex } from '../zIndex';
 
 interface ModalProps {
   // A single button element; Radix wires up its click, focus, and ARIA attributes.
@@ -14,8 +15,10 @@ const Modal: React.FC<ModalProps> = ({ trigger, title, description, children }) 
     <Dialog.Root>
       <Dialog.Trigger asChild>{trigger}</Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/50" />
-        <Dialog.Content className="fixed z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-slate-800 rounded-lg p-6 w-[calc(100%-2rem)] max-w-md shadow-xl">
+        <Dialog.Overlay className={`fixed inset-0 ${zIndex.modal} bg-black/50`} />
+        <Dialog.Content
+          className={`fixed ${zIndex.modal} top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-slate-800 rounded-lg p-6 w-[calc(100%-2rem)] max-w-md shadow-xl`}
+        >
           <Dialog.Title className="text-2xl font-bold mb-4 text-slate-900 dark:text-white">
             {title}
           </Dialog.Title>

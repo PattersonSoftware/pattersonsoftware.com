@@ -15,7 +15,7 @@ const HeroSection: React.FC = () => {
           Helping teams build modern, robust, and scalable applications using proven architecture
           and design.
         </p>
-        <Contact buttonText="Get in Touch" />
+        <Contact />
       </div>
     </section>
   );

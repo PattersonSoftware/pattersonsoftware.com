@@ -39,6 +39,8 @@ src/
   main.tsx                  # Entry point (React StrictMode)
   App.tsx                   # Root component: skip link, Header, <main> with sections, Footer
   siteConfig.ts             # Business facts (name, founded year, email, career start year)
+  pageSections.ts           # Section anchor IDs + nav labels (Header and sections both use it)
+  zIndex.ts                 # Stacking order: header < modal < skip link
   index.css                 # Global Tailwind imports
   assets/logo.png
   components/
@@ -46,9 +48,11 @@ src/
     Footer.tsx              # Dynamic copyright year
     Logo.tsx                # Configurable logo image wrapper
     Section.tsx             # Standard section wrapper: id, labelled region, h2, spacing
+    CardList.tsx            # <ul role="list"> grid for Service/Product cards
+    PrimaryButton.tsx       # Blue call-to-action button (works as a Radix asChild trigger)
     Service.tsx             # Service card rendered as a <li>
     Modal.tsx               # Shared Radix UI Dialog (trigger, title, description, Close)
-    Contact.tsx             # Contact button + Modal with email link
+    Contact.tsx             # "Get in Touch" button + Modal with email link
     Product.tsx             # Product card rendered as a <li> (icon, name, status badge, action)
     EmailLink.tsx           # Mail icon + mailto link (optional prefilled subject)
     Waitlist.tsx            # "Join the List" button + Modal pointing to the inquiries email (placeholder)
@@ -76,7 +80,11 @@ Tests live next to the code they cover (`*.test.ts(x)`).
 - **Responsive:** Mobile-first using `md:` breakpoint prefix
 - **Accessibility:** Use semantic elements (`<main>`, `<nav>`, `<section aria-labelledby>`, `<ul>`/`<li>`, `<h1>`–`<h3>`, `<button>`, `<a href>`) instead of ARIA roles. Don't add a `role` that repeats an element's built-in role, and never use widget roles like `grid` or `button` for non-interactive or navigational content. Interactive disclosure controls need `aria-expanded`/`aria-controls`. Keep one `<h1>` (the hero) and heading levels in order. Decorative lucide icons are `aria-hidden` by default.
 - **Content:** Business facts (company name, founded year, contact email, years of experience) come from `src/siteConfig.ts`; don't hardcode them in components.
-- **New sections:** Use `<Section id title>` and add the matching link to `navLinks` in `Header.tsx`.
+- **New sections:** Add an entry to `src/pageSections.ts` (and to `navSections` if it belongs in the nav), then render `<Section id={pageSections.x.id} title>`. `App.integration.test.tsx` fails if a nav link has no matching section.
+- **Shared UI:** Use `PrimaryButton` for call-to-action buttons, `CardList` for card grids, `Modal` for dialogs, and `EmailLink` for mailto links rather than copying their classes.
+- **Z-index:** Take z-index classes from `src/zIndex.ts`; don't add ad hoc `z-*` values.
+- **Tailwind classes must be written out in full:** don't build class names at runtime (e.g. `` `focus:${x}` ``), because Tailwind only generates classes it finds as complete strings in source.
+- **Theme bootstrap:** The inline script in `index.html` must match the rules in `src/context/theme.ts`; `themeBootstrap.test.ts` runs it and will fail if they diverge.
 - **Tests:** Query by role and accessible name. Don't assert on Tailwind class names or exact marketing copy.
 - **State:** Local `useState` only — no global state library
 - **TypeScript:** Strict mode is on; `noUnusedLocals` and `noUnusedParameters` are enforced

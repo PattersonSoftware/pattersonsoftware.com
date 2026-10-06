@@ -1,5 +1,6 @@
 import React from 'react';
 import Section from '../components/Section';
+import { pageSections } from '../pageSections';
 import { site, yearsOfExperience } from '../siteConfig';
 
 // Computed once at load; render must stay pure.
@@ -7,7 +8,7 @@ const experienceYears = yearsOfExperience();
 
 const AboutSection: React.FC = () => {
   return (
-    <Section id="about" title="About">
+    <Section id={pageSections.about.id} title="About">
       <div className="bg-white dark:bg-slate-800 p-8 rounded-lg shadow-sm space-y-4 text-lg text-slate-700 dark:text-slate-300">
         <p>
           Founded in {site.foundedYear}, {site.name} is an independent consultancy focused on
